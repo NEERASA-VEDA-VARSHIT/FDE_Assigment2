@@ -1,0 +1,93 @@
+{
+  "dataset_id": "FD001",
+  "overall_status": "WARN",
+  "total_train_records": 20631,
+  "total_test_records": 13096,
+  "checks": {
+    "composite_grain_uniqueness": {
+      "status": "PASS",
+      "dimension": "Technical / Semantic",
+      "contract": "Each engine-cycle snapshot (unit_number, time_in_cycles) must be strictly unique.",
+      "train_duplicate_snapshots": 0,
+      "test_duplicate_snapshots": 0
+    },
+    "engine_unit_contiguity": {
+      "status": "PASS",
+      "dimension": "Technical",
+      "contract": "Engine identifiers must be strictly contiguous integers from 1 to N.",
+      "train_engines_detected": 100,
+      "train_contiguous": true,
+      "test_engines_detected": 100,
+      "test_contiguous": true
+    },
+    "cycle_sequence_continuity": {
+      "status": "PASS",
+      "dimension": "Semantic",
+      "contract": "Trajectories must start at cycle 1 and increment monotonically by +1 with zero missing cycles.",
+      "train_broken_trajectories": 0,
+      "test_broken_trajectories": 0
+    },
+    "sensor_variance_audit": {
+      "status": "WARN",
+      "dimension": "Technical / Measurement",
+      "contract": "Audit sensor columns for within-dataset variation under the evaluated flight regime.",
+      "total_sensors_evaluated": 21,
+      "flatline_sensor_count": 6,
+      "flatline_sensor_channels": [
+        "sensor_1",
+        "sensor_5",
+        "sensor_10",
+        "sensor_16",
+        "sensor_18",
+        "sensor_19"
+      ],
+      "active_sensor_channels": [
+        "sensor_2",
+        "sensor_3",
+        "sensor_4",
+        "sensor_6",
+        "sensor_7",
+        "sensor_8",
+        "sensor_9",
+        "sensor_11",
+        "sensor_12",
+        "sensor_13",
+        "sensor_14",
+        "sensor_15",
+        "sensor_17",
+        "sensor_20",
+        "sensor_21"
+      ],
+      "interpretation": "Identified channels exhibit zero within-dataset variation under FD001 and cannot distinguish degradation progression in this analysis."
+    },
+    "trajectory_lifespan_bounds": {
+      "status": "PASS",
+      "dimension": "Semantic",
+      "contract": "Run-to-failure lifespans fall within expected simulation bounds [50, 1000] cycles.",
+      "min_cycles_to_failure": 128,
+      "max_cycles_to_failure": 362,
+      "median_cycles_to_failure": 199.0,
+      "mean_cycles_to_failure": 206.31,
+      "std_cycles_to_failure": 46.34,
+      "statistical_convention": "Sample standard deviation (ddof=1)"
+    },
+    "test_rul_alignment": {
+      "status": "PASS",
+      "dimension": "Technical",
+      "contract": "Ground truth RUL vector length must exactly match the number of unique test engines.",
+      "test_engines": 100,
+      "rul_labels_provided": 100,
+      "documentation_swapped_discrepancy": false,
+      "reconciliation_note": "In FD004, a documentation/file-count discrepancy was identified during programmatic validation (readme claims 248 train / 249 test; actual files contain 249 train / 248 test)."
+    },
+    "operational_decision_context": {
+      "status": "UNKNOWN",
+      "dimension": "Organizational / Decision Context",
+      "contract": "Verify whether validated operational maintenance thresholds, economic costs, or real-world failure probabilities exist in the dataset.",
+      "validated_maintenance_threshold": "UNKNOWN (Not present in C-MAPSS dataset)",
+      "maintenance_cost_matrix": "UNKNOWN (Economic data not included in simulation)",
+      "real_world_failure_probability": "UNKNOWN (Simulation models synthetic run-to-failure endpoints)",
+      "governance_implication": "All analytical thresholds (e.g., RUL <= 30) must be treated as unratified exploratory boundaries, not operational maintenance policies."
+    }
+  }
+}

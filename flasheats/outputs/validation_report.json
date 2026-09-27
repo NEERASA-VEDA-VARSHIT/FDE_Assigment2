@@ -1,0 +1,191 @@
+{
+  "summary": {
+    "overall_pipeline_status": "WARN (NON-BLOCKING)",
+    "can_proceed_to_transform": true,
+    "quarantined_items_count": 6
+  },
+  "checks": {
+    "business_grain": {
+      "status": "WARN",
+      "raw_orders_count": 1603,
+      "unique_orders_count": 1600,
+      "duplicate_rows_detected": 3,
+      "duplicate_order_ids": [
+        "O00120",
+        "O00723",
+        "O01302"
+      ],
+      "resolution_rule": "Deterministic selection: retain first occurrence (`keep='first'`), preserve all conflicting records in quarantine log.",
+      "canonical_orders_count": 1600
+    },
+    "delivered_completion_timestamps": {
+      "status": "WARN",
+      "total_delivered_orders": 1532,
+      "missing_completion_timestamp_count": 37,
+      "missing_percentage": 2.42,
+      "affected_order_ids_sample": [
+        "O00043",
+        "O00095",
+        "O00127",
+        "O00206",
+        "O00286"
+      ],
+      "impact": "Shifts late rate denominator. Must be governed explicitly (excluded from zero-tolerance non-null denominator vs counted as on-time)."
+    },
+    "timestamp_chronology": {
+      "status": "WARN",
+      "promised_eta_before_created_count": 4,
+      "promised_eta_before_created_samples": [
+        "O00101",
+        "O00102",
+        "O00103",
+        "O00104"
+      ],
+      "pickup_after_delivery_count": 5,
+      "pickup_after_delivery_samples": [
+        "O00051",
+        "O00052",
+        "O00053",
+        "O00054",
+        "O00055"
+      ],
+      "publication_impact": "UNSAFE to publish zero-tolerance metrics externally without database check constraints fixing inverted intervals."
+    },
+    "referential_integrity": {
+      "status": "WARN",
+      "orders_to_restaurants_coverage_pct": 100.0,
+      "orders_to_drivers_coverage_pct": 100.0,
+      "tickets_to_orders_coverage_pct": 100.0,
+      "tickets_missing_order_id_count": 3,
+      "restaurant_status_foreign_key_validity_pct": 100.0,
+      "restaurant_status_order_volume_coverage_pct": 31.25,
+      "decision_impact": "1% unmapped tickets acceptable for volume trends, but creates blind spots for churn investigations. Restaurant status has valid FKs but covers only ~31% of orders."
+    },
+    "freshness_slas": {
+      "status": "WARN",
+      "sla_evaluations": {
+        "weekly_analytics": {
+          "fitness": "WARN (Conditionally Acceptable)",
+          "rationale": "Batch aggregation tolerates minute-level logging lag, but is limited by 31.4% order volume coverage."
+        },
+        "live_customer_eta": {
+          "fitness": "FAIL (UNSAFE)",
+          "rationale": "33.07% of status updates occur AFTER driver pickup; negative lags up to -354 min reveal clock skew. Feeding into live ETA actively misleads customers."
+        },
+        "restaurant_accountability": {
+          "fitness": "FAIL (UNSAFE)",
+          "rationale": "Untenable for contractual partner penalties; merchants can dispute timestamps updated after driver departure."
+        }
+      },
+      "post_pickup_updates_count": 166,
+      "post_pickup_updates_pct": 33.07,
+      "clock_skew_negative_lags_count": 6
+    },
+    "kpi_governance": {
+      "status": "UNKNOWN",
+      "leadership_claim": "Late Delivery Rate is 56%",
+      "canonical_owner_documented": false,
+      "note": "No canonical KPI owner is formally documented.",
+      "publish_56_percent_verdict": "FAIL (DO NOT PUBLISH TODAY)",
+      "prerequisites_for_publication": [
+        "Executive KPI Owner appointment to formally govern the formula and tolerance threshold.",
+        "Ratification of denominator treatment for cancelled orders and 37 missing completion timestamps.",
+        "Data engineering remediation for negative durations and duplicate order events."
+      ]
+    }
+  },
+  "quarantine": {
+    "duplicate_orders": [
+      {
+        "order_id": "O00120",
+        "customer_id": "C0501",
+        "restaurant_id": "R040",
+        "driver_id": "D045",
+        "city": "Bengaluru",
+        "created_at": "2026-08-13T18:15:00",
+        "promised_eta": "2026-08-13T19:40:24",
+        "pickup_at": "2026-08-13T18:29:08.055622",
+        "actual_delivery_at": "2026-08-13T19:34:08.431508",
+        "final_status": "delivered",
+        "distance_km_estimate": 18.0,
+        "traffic_bucket": "severe",
+        "weather_bucket": "clear"
+      },
+      {
+        "order_id": "O00120",
+        "customer_id": "C0501",
+        "restaurant_id": "R040",
+        "driver_id": "D045",
+        "city": "Bengaluru",
+        "created_at": "2026-08-13T18:15:00",
+        "promised_eta": "2026-08-13T19:40:24",
+        "pickup_at": "2026-08-13T18:29:08.055622",
+        "actual_delivery_at": "2026-08-13T19:34:08.431508",
+        "final_status": "delivered",
+        "distance_km_estimate": 18.0,
+        "traffic_bucket": "medium",
+        "weather_bucket": "clear"
+      },
+      {
+        "order_id": "O00723",
+        "customer_id": "C0467",
+        "restaurant_id": "R028",
+        "driver_id": "D068",
+        "city": "Bengaluru",
+        "created_at": "2026-08-05T21:04:00",
+        "promised_eta": "2026-08-05T22:19:36",
+        "pickup_at": "2026-08-05T21:15:24.433874",
+        "actual_delivery_at": "2026-08-05T22:04:30.928322",
+        "final_status": "delivered",
+        "distance_km_estimate": 18.0,
+        "traffic_bucket": "medium",
+        "weather_bucket": "clear"
+      },
+      {
+        "order_id": "O00723",
+        "customer_id": "C0467",
+        "restaurant_id": "R028",
+        "driver_id": "D068",
+        "city": "Bengaluru",
+        "created_at": "2026-08-05T21:04:00",
+        "promised_eta": "2026-08-05T22:19:36",
+        "pickup_at": "2026-08-05T21:15:24.433874",
+        "actual_delivery_at": "2026-08-05T22:04:30.928322",
+        "final_status": "delivered",
+        "distance_km_estimate": 18.0,
+        "traffic_bucket": "high",
+        "weather_bucket": "clear"
+      },
+      {
+        "order_id": "O01302",
+        "customer_id": "C0116",
+        "restaurant_id": "R010",
+        "driver_id": "D088",
+        "city": "Bengaluru",
+        "created_at": "2026-08-26T21:07:00",
+        "promised_eta": "2026-08-26T22:15:50.273095",
+        "pickup_at": "2026-08-26T21:35:26.474087",
+        "actual_delivery_at": "2026-08-26T22:20:27.428561",
+        "final_status": "delivered",
+        "distance_km_estimate": 14.78,
+        "traffic_bucket": "medium",
+        "weather_bucket": "clear"
+      },
+      {
+        "order_id": "O01302",
+        "customer_id": "C0116",
+        "restaurant_id": "R010",
+        "driver_id": "D088",
+        "city": "Bengaluru",
+        "created_at": "2026-08-26T21:07:00",
+        "promised_eta": "2026-08-26T22:15:50.273095",
+        "pickup_at": "2026-08-26T21:35:26.474087",
+        "actual_delivery_at": "2026-08-26T22:20:27.428561",
+        "final_status": "delivered",
+        "distance_km_estimate": 14.78,
+        "traffic_bucket": "high",
+        "weather_bucket": "clear"
+      }
+    ]
+  }
+}
