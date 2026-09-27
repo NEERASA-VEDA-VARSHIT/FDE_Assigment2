@@ -72,7 +72,10 @@ def run_transform(data_bundle, logger=None):
     t50_std = float(df_transformed["sensor_4"].std())
     nc_std = float(df_transformed["sensor_9"].std())
     
-    df_transformed["thermal_wear_index"] = (
+    # 4. Exploratory Standardized Drift Index
+    # NOTE: An exploratory composite of standardized deviations in two observed sensor channels.
+    # It is not a validated physical wear or health index.
+    df_transformed["standardized_drift_index"] = (
         (t50_drift / t50_std) + (nc_drift / nc_std)
     ).round(4)
     
@@ -107,7 +110,7 @@ def run_transform(data_bundle, logger=None):
         "sensor_20", "sensor_21",
         "sensor_4_drift",   # T50 drift
         "sensor_9_drift",   # Nc drift
-        "thermal_wear_index",
+        "standardized_drift_index",
         "total_lifespan",
         "true_rul",
         "lifecycle_progression",

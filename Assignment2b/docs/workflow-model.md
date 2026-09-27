@@ -45,7 +45,6 @@ Rather than asserting unobserved physical milestones, the analytical workflow ma
 | **Sensor Trajectory Over Time** | Multi-cycle series of sensor observations per engine unit. | `OBSERVED` | Longitudinal sequence from initial recorded cycle to final recorded cycle. |
 | **Changing Sensor Behavior** | Sensed drift from early baseline ($\Delta s_i = s_i - s_{i,\text{base}}$). | `OBSERVED` | Statistically measurable drift across core gas-path channels ($T_{50}, T_{30}, N_c$). |
 | **Point of Fault Onset** | The exact cycle where nominal wear transitions to fault growth. | `UNKNOWN` | Not annotated in the dataset; can only be estimated via statistical changepoint inference. |
-| **Two-Phase Degradation** | Presence of an initial stable phase followed by accelerated drift. | `INFERRED` | Inferred from trajectory curvature and rolling baseline divergence. |
 | **Simulated Failure Endpoint** | Terminal cycle in training file ($C_{\max} = C_{\text{fail}}$). | `OBSERVED` | The simulation stopped recording; ground-truth operational end of run. |
 | **Instantaneous Health Index $H(t)$**| Exact internal margin value ($H(t) = \min(m_{\text{Fan}}, m_{\text{HPC}}, \dots)$). | `UNKNOWN` | Calculated internally by the simulation, but withheld from the raw data files. |
 | **Initial Manufacturing Wear Degree**| Exact percentage wear per engine at cycle 1. | `UNKNOWN` | Documented in literature as randomly bounded ($\le 1\%$), but exact engine values are unrecorded. |
@@ -75,8 +74,8 @@ Rather than asserting unobserved physical milestones, the analytical workflow ma
                 │
                 ▼
 ┌────────────────────────────────┐
-│   Standardized Wear Scoring    │  Dimensionless Thermal Wear Index:
-│   (Multi-Sensor Fusion)        │  Index = (Delta T50 / sigma_T50) + (Delta Nc / sigma_Nc)
+│   Standardized Drift Scoring   │  Exploratory Standardized Drift Index:
+│   (Two-Sensor Standardization) │  Index = (Delta T50 / sigma_T50) + (Delta Nc / sigma_Nc)
 └───────────────┬────────────────┘
                 │
                 ▼
@@ -142,7 +141,7 @@ The enriched condition-monitoring table contains **20,631 rows** and **26 column
 | `sensor_21` | Float | Raw Col 25 | $W_{32}$ — LPT coolant bleed ($\text{lbm/s}$). |
 | `sensor_4_drift` | Float | $s_4 - s_{4,\text{base}}$ | Cumulative thermal drift in Exhaust Gas Temperature ($^\circ\text{R}$). |
 | `sensor_9_drift` | Float | $s_9 - s_{9,\text{base}}$ | Cumulative mechanical drift in core rotational speed ($\text{rpm}$). |
-| `thermal_wear_index` | Float | Derived composite | Dimensionless standardized thermal wear score: $(\Delta T_{50}/\sigma) + (\Delta N_c/\sigma)$. |
+| `standardized_drift_index` | Float | Derived composite | An exploratory composite of standardized deviations in two observed sensor channels ($(\Delta T_{50}/\sigma) + (\Delta N_c/\sigma)$). It is not a validated physical wear or health index. |
 | `total_lifespan` | Integer | $\max(t)$ per unit | Total completed cycles to simulated endpoint ($C_{\text{fail}}$). |
 | `true_rul` | Integer | $C_{\text{fail}} - t$ | True Remaining Useful Life in cycles at current snapshot. |
 | `lifecycle_progression` | Float | $t / C_{\text{fail}}$ | Normalized operational progression ratio ($0.0 \dots 1.0$). |

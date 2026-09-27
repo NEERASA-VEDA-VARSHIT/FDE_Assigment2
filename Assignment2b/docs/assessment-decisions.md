@@ -41,7 +41,7 @@ In FD001, Sensors 1, 5, 10, 16, 18, and 19 have $\sigma < 10^{-4}$. Should the d
 ### Governed Decision
 **Do NOT silently drop columns from the data architecture.**
 1. **Preserve Raw Schema**: Ingestion retains all 26 columns in raw and validation stages to preserve complete data provenance and ensure cross-compatibility with FD002–FD004 (where these channels are active under varying flight conditions).
-2. **Explicit Quarantine / Masking**: The transformation module explicitly isolates active non-constant sensors (15 channels) from constant channels (6 channels) when computing thermal wear indices.
+2. **Explicit Quarantine / Masking**: The transformation module explicitly isolates active non-constant sensors (15 channels) from constant channels (6 channels) when computing standardized drift metrics.
 3. **Failure Contract Transparency**: The validation gate explicitly records the flatline status under `sensor_variance_audit` as `WARN` in `outputs/validation_report.json`.
 
 ---

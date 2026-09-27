@@ -54,7 +54,7 @@ Modular, production-quality Python pipeline executing `INGEST → VALIDATE → T
 **Verdict**: **`PASS`**  
 Strict separation maintained throughout code, metrics, and documentation:
 * *Observed*: Sensor variance, cycle correlation, fleet lifespan spread (128–362 cycles), absence of NaNs.
-* *Inferred*: Multi-sensor drift association with cycle progression, two-phase wear divergence.
+* *Inferred*: Multi-sensor drift association with cycle progression.
 * *Unknown*: Maintenance costs, real-world failure probabilities, regulatory thresholds.
 
 ---
@@ -91,7 +91,7 @@ Strict separation maintained throughout code, metrics, and documentation:
 * **Protocol**: Purged `outputs/` directory and executed pipeline from raw source files twice consecutively.
 * **Results**:
   - `validation_report.json`: `50a7e2a853cdd4e2...` (MATCH)
-  - `final_output.csv`: `2325bbc05afa01e1...` (MATCH)
+  - `final_output.csv`: `7c89de19d103ab1a...` (MATCH)
   - `metrics.csv`: `0991837418a0f50a...` (MATCH)
 * **Scope**: Verifies bit-for-bit **deterministic repeatability** across consecutive runs. Does not prove analytical correctness.
 

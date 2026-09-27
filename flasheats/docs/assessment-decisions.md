@@ -5,19 +5,19 @@ This document records the critical Forward Deployed Engineering (FDE) decisions 
 
 ---
 
-## Decision 1: Reject Building an AI Delay Prediction Model
+## Decision 1: Reject Premature Predictive Modeling Due to Unobserved Workflow Gaps
 
 ### Executive Decision
-**FlashEats must NOT build or deploy an AI delay prediction system today.**
+**FlashEats must NOT build or deploy an automated delay prediction model today.**
 
 ### Rationale & Data Evidence
 1. **Unobserved Confounding**:
    - `driver_events.json` records driver assignment, pickup, delivery, and GPS pings.
    - It contains **zero directly observed `driver_arrived_at_restaurant` events**.
    - As a result, the time elapsed between driver assignment and pickup is an indivisible black box. We cannot determine whether delay occurred because the courier was caught in traffic traveling to the venue or because the courier arrived promptly and waited 20 minutes for an unprepared meal.
-2. **Biased Model Training**:
-   - Training a machine learning model on current data would cause the algorithm to falsely attribute kitchen preparation delays to driver transit time or road congestion (`traffic_bucket`).
-   - The model would produce systematically flawed ETAs, penalize high-performing drivers assigned to slow restaurants, and fail to resolve the underlying operational bottleneck.
+2. **Unreliable Model Training**:
+   - A predictive model trained on the current telemetry could confound courier transit with unobserved restaurant wait time, making attribution and downstream ETA decisions unreliable.
+   - The resulting predictions could be unreliable because a key part of the pre-pickup workflow is unobserved, and operations would risk misallocating dispatch resources.
 3. **FDE Principle**: *Fix physical instrumentation and telemetry boundaries before investing in predictive machine learning models.*
 
 ---

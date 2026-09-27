@@ -163,7 +163,7 @@ Rather than treating tables as disconnected CSVs, data is structured along the n
 2. **Customer Friction Rate (Interaction Metric)**
    - *Formula*: `Count(orders with support_opened == 1 or cancel_attempted == 1) / Count(total orders)`
    - *Grain*: Order Customer Interaction
-   - *Value*: **12.44%** (199 / 1,600)
+   - *Value*: **12.56%** (201 / 1,600)
    - *Why It Matters*: Quantifies direct customer dissatisfaction and risk of app churn.
    - *KPI Linkage*: Reducing delivery delays directly eliminates customer app anxiety and support costs.
 3. **Operational Intervention Rate (Workflow Metric)**

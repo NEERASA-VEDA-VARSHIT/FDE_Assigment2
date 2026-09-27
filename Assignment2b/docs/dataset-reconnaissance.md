@@ -211,7 +211,7 @@ Reconnaissance revealed critical data-engineering nuances that must be governed 
    - `sensor_18` (`Nf_dmd`): Constant at $2,388\text{ rpm}$.
    - `sensor_19` (`PCNfR_dmd`): Constant at $100.0\text{ rpm}$.
    - In addition, `sensor_6` ($P_{15}$) takes only two discrete values ($21.60$ and $21.61\text{ psia}$, $\sigma = 0.00139$).
-   * *Operational Impact*: In FD001, these 6 sensors provide zero diagnostic or prognostic information. However, in FD002 and FD004 (multi-condition), these same sensors exhibit significant variance due to flight regime changes.
+   * *Operational Impact*: These six channels provide no within-dataset variation under FD001 and therefore cannot discriminate degradation progression within this specific analysis. However, in FD002 and FD004 (multi-condition), these same sensors exhibit significant variance driven by flight regime changes.
 3. `[DOCUMENTATION DISCREPANCY]` **Trajectory Count Swapping in `readme.txt`**:
    The official `readme.txt` states:
    > `Data Set: FD004`  
@@ -277,7 +277,7 @@ For an initial Forward Deployed Engineering assessment and foundational data mod
 ## 14. Evidence Behind the Recommendation
 
 1. **Isolation of Physical Degradation from Operational Regime Shifts**:
-   In FD002 and FD004, sensor measurements fluctuate dramatically as the aircraft cycles between 6 flight regimes (e.g., Sea Level vs. 42,000 ft cruise). In those datasets, over 80% of sensor variance is driven by altitude and Mach changes rather than component wear. In **FD001**, the engine operates exclusively at Sea Level ($TRA = 100$, $Alt \approx 0$, $Mach \approx 0$). Sensor trends reflect **pure physical wear and tear**, allowing foundational engineering reasoning without complex multi-regime normalization.
+   In FD002 and FD004, sensor measurements fluctuate dramatically as the aircraft cycles between 6 flight regimes (e.g., Sea Level vs. 42,000 ft cruise), where substantial sensor variance is driven by altitude and Mach changes rather than component wear. In contrast, **FD001** reduces operating-condition variation relative to the multi-condition subsets, making it a simpler single-condition setting for examining sensor behavior across simulated degradation trajectories without complex multi-regime normalization.
 2. **Deterministic Single Failure Mode**:
    FD001 isolates a single failure mode: High-Pressure Compressor (HPC) degradation. This ensures that degradation signatures across all 100 engines follow a coherent physical degradation path, avoiding competing failure modes where fan degradation and compressor degradation exhibit conflicting sensor dynamics (as in FD003 and FD004).
 3. **Statistically Significant Fleet Size**:

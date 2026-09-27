@@ -4,7 +4,7 @@
 
 On-demand delivery platform FlashEats experienced an increase in late delivery complaints, with customers reporting unreliable estimated times of arrival (ETAs). Operations and leadership required a dependable analytical investigation to understand where delivery delays accumulate across the fulfillment workflow, how customer friction escalates, and how operational remedies interact with late deliveries.
 
-Before committing capital to an automated AI delay-prediction model, the organization mandated an objective data foundations assessment to establish whether existing telemetry is complete, trustworthy, and capable of supporting predictive modeling.
+This assessment performs a comprehensive data foundations investigation: establishing source provenance, validating schemas and timestamps, identifying telemetry blind spots, and determining whether operational data is dependable enough to govern business metrics and support automated dispatch or prediction.
 
 ---
 
@@ -14,7 +14,7 @@ The assessment investigates the operational problem across five primary stakehol
 
 | Stakeholder Domain | Operational Focus | Primary Decision Need |
 |---|---|---|
-| **Operations / Leadership** | Platform fulfillment and delivery SLA compliance. | Determining true late delivery prevalence and evaluating AI delay-prediction feasibility. |
+| **Operations / Leadership** | Platform fulfillment and delivery SLA compliance. | Determining true late delivery prevalence and evaluating fulfillment telemetry dependability. |
 | **Customer Support / CX** | In-flight customer friction and compensation costs. | Understanding customer complaint thresholds and ticket escalation drivers. |
 | **Restaurant Operations** | Merchant kitchen prep times and food readiness. | Evaluating kitchen display status update latency and handoff bottlenecks. |
 | **Driver / Dispatch Operations** | Courier transit times, fleet availability, and routing. | Assessing dispatch matching, transit vs. dwell duration, and road congestion. |
@@ -229,8 +229,8 @@ All documentation links are relative:
 
 ## 14. Final Decision
 
-**FlashEats must NOT build or deploy an AI delay-prediction model today.**
+**FlashEats telemetry does not currently provide a dependable foundation for automated delay prediction or algorithm-driven dispatch.**
 
-Because courier arrival at the restaurant is unobserved in telemetry, the duration between assignment and pickup is an indivisible black box. Training an algorithm on current data would cause the model to falsely attribute kitchen preparation delays to courier transit time and road congestion. The model would produce systematically biased ETAs, penalize high-performing couriers assigned to slow restaurants, and fail to address operational bottlenecks.
+Because courier arrival at the restaurant is unobserved in telemetry, the duration between assignment and pickup is an indivisible black box. A predictive model trained on the current telemetry could confound courier transit with unobserved restaurant wait time, making attribution and downstream ETA decisions unreliable. The resulting predictions could be unreliable because a key part of the pre-pickup workflow is unobserved.
 
-**Strategic Recommendation**: FlashEats must first implement automated restaurant arrival beacons (e.g. BLE / geofencing) and kitchen ready confirmations. **Fix physical instrumentation first; predict second.**
+**Strategic Recommendation**: FlashEats must first implement automated restaurant arrival beacons (e.g. BLE / geofencing) and merchant kitchen ready confirmations. **Fix physical instrumentation and telemetry boundaries before building predictive models.**

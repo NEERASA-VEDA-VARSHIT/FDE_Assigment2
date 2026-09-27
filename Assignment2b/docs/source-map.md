@@ -37,7 +37,7 @@ Forward deployed engineering establishes transparent boundaries between raw sour
 * **Purpose**: Provide full-lifecycle degradation trajectories from initial wear to simulated failure endpoint.
 * **Authority**: **Authoritative simulation record** for training trajectories.
 * **Limitations**: Synthetic simulation data; does not contain calendar flight hours, real-world maintenance actions, or intermediate health index labels.
-* **Retrieval Method**: Whitespace regex extraction (`sep=r'\s+'`) from `data/raw/cmapss/train_FD001.txt`.
+* **Retrieval Method**: Whitespace regex extraction (`sep=r'\s+'`) from `data/raw/CMAPSSData/train_FD001.txt`.
 
 ---
 
@@ -49,7 +49,7 @@ Forward deployed engineering establishes transparent boundaries between raw sour
 * **Purpose**: Provide truncated operating histories that stop at an undisclosed point prior to failure.
 * **Authority**: **Authoritative simulation record** for test evaluation.
 * **Limitations**: Truncated prior to failure; actual remaining life is unknown within the file itself.
-* **Retrieval Method**: Whitespace regex extraction (`sep=r'\s+'`) from `data/raw/cmapss/test_FD001.txt`.
+* **Retrieval Method**: Whitespace regex extraction (`sep=r'\s+'`) from `data/raw/CMAPSSData/test_FD001.txt`.
 
 ---
 
@@ -61,7 +61,7 @@ Forward deployed engineering establishes transparent boundaries between raw sour
 * **Purpose**: Benchmark ground truth for evaluating prognostic horizon accuracy on test units.
 * **Authority**: **Authoritative ground truth** for test set evaluation.
 * **Limitations**: Provided as a post-hoc evaluation vector; not available in live streaming operations.
-* **Retrieval Method**: Text reading and integer conversion from `data/raw/cmapss/RUL_FD001.txt`.
+* **Retrieval Method**: Text reading and integer conversion from `data/raw/CMAPSSData/RUL_FD001.txt`.
 
 ---
 
@@ -73,7 +73,7 @@ Forward deployed engineering establishes transparent boundaries between raw sour
 * **Purpose**: Authoritative domain documentation defining the engineering meaning of sensor channels and simulation logic.
 * **Authority**: **Authoritative scientific documentation** for the dataset.
 * **Limitations**: Describes simulation design principles; does not disclose exact proprietary commercial engine configuration.
-* **Retrieval Method**: Extracted from raw ZIP archive (`data/raw/cmapss/Damage Propagation Modeling.pdf`).
+* **Retrieval Method**: Extracted from raw ZIP archive (`data/raw/CMAPSSData/Damage Propagation Modeling.pdf`).
 
 ---
 
@@ -85,14 +85,14 @@ Forward deployed engineering establishes transparent boundaries between raw sour
 * **Purpose**: High-level user guidance for dataset structure.
 * **Authority**: Contextual metadata (contains a documented discrepancy in FD004 trajectory counts).
 * **Limitations**: High-level summary; does not define individual sensor physical engineering units or locations.
-* **Retrieval Method**: Text decoding from `data/raw/cmapss/readme.txt`.
+* **Retrieval Method**: Text decoding from `data/raw/CMAPSSData/readme.txt`.
 
 ---
 
 ### Source 6: `outputs/final_output.csv`
 * **Artifact Category**: `DERIVED OUTPUT`
 * **Owner / Origin**: FDE Dependable Pipeline (`pipeline/transform.py`).
-* **Content**: Transformed 26-column condition-monitoring dataset containing raw observations, per-engine baselines, cumulative thermal drift, and analytical lifecycle stages.
+* **Content**: Transformed 26-column condition-monitoring dataset containing raw observations, per-engine baselines, cumulative sensor drift, standardized drift index, and analytical lifecycle stages.
 * **Grain**: 1 record per engine unit per operational flight cycle `(unit_number, time_in_cycles)`.
 * **Purpose**: Standardized, clean canonical dataset for exploratory analysis and condition tracking.
 * **Authority**: Derived pipeline output; verified by unit tests and dynamic grain assertions.

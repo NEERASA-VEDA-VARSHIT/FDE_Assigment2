@@ -62,7 +62,7 @@ Definitions, station symbols, and engineering units are cross-referenced from **
 | **`sensor_3`** | `7` | $T_{30}$ | Total temperature at HPC outlet | $^\circ\text{R}$ | $[1571.04, 1616.91]$ | `ACTIVE` ($\sigma = 6.1311$) | Strong positive drift ($r = +0.54$) tracking HPC thermal load |
 | **`sensor_4`** | `8` | $T_{50}$ | Total temperature at LPT outlet (EGT) | $^\circ\text{R}$ | $[1382.25, 1441.49]$ | `ACTIVE` ($\sigma = 9.0006$) | **Primary degradation marker** ($r = +0.62$, within-unit $\rho = +0.77$) |
 | **`sensor_5`** | `9` | $P_2$ | Total pressure at fan inlet | $\text{psia}$ | $[14.62, 14.62]$ | **`CONSTANT`** ($\sigma = 0$) | **Zero variation** (Ambient sea-level pressure; flatline) |
-| **`sensor_6`** | `10` | $P_{15}$ | Total pressure in bypass-duct | $\text{psia}$ | $[21.60, 21.61]$ | **`NEAR_CONSTANT`** ($\sigma = 0.0014$) | Only 2 discrete quantization values; near-zero diagnostic info |
+| **`sensor_6`** | `10` | $P_{15}$ | Total pressure in bypass-duct | $\text{psia}$ | $[21.60, 21.61]$ | **`NEAR_CONSTANT`** ($\sigma = 0.0014$) | Only 2 discrete quantization values; near-zero within-FD001 variation |
 | **`sensor_7`** | `11` | $P_{30}$ | Total pressure at HPC outlet | $\text{psia}$ | $[549.85, 556.06]$ | `ACTIVE` ($\sigma = 0.8851$) | Strong negative drift ($r = -0.60$, within-unit $\rho = -0.75$) |
 | **`sensor_8`** | `12` | $N_f$ | Physical fan speed | $\text{rpm}$ | $[2387.90, 2388.56]$ | `ACTIVE` ($\sigma = 0.0710$) | Moderate positive drift ($r = +0.48$) tracking spool speed |
 | **`sensor_9`** | `13` | $N_c$ | Physical core speed | $\text{rpm}$ | $[9021.73, 9244.59]$ | `ACTIVE` ($\sigma = 22.0829$) | High absolute variance; positive drift ($r = +0.44$) |
