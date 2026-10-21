@@ -53,12 +53,19 @@ def ensure_mock_api_running(logger):
 
     logger.info(f"Starting Mock Dispatch API server from {API_SCRIPT_PATH}...")
     proc = subprocess.Popen(
-        [sys.executable, str(API_SCRIPT_PATH)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
+        [sys.executable, str(API_SCRIPT_PATH)],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.PIPE,
+        text=True,
     )
-    time.sleep(2)
+    time.sleep(1.5)
 
     # Verify health
-    for _ in range(5):
+    for attempt in range(8):
+        if proc.poll() is not None:
+            err = proc.stderr.read() if proc.stderr else ""
+            logger.error(f"Mock Dispatch API server exited prematurely (code {proc.returncode}): {err}")
+            raise RuntimeError(f"Mock API failed to start: {err}")
         try:
             r = requests.get(HEALTH_ENDPOINT, timeout=2)
             if r.status_code == 200:

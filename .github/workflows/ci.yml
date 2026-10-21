@@ -10,6 +10,8 @@ jobs:
   test:
     name: Lint, Test & Validate Data Pipelines (Python ${{ matrix.python-version }})
     runs-on: ubuntu-latest
+    env:
+      PYTHONPATH: .
     strategy:
       matrix:
         python-version: ["3.10", "3.11", "3.12"]
@@ -23,6 +25,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           cache: "pip"
+          cache-dependency-path: requirements.txt
 
       - name: Install dependencies
         run: |
