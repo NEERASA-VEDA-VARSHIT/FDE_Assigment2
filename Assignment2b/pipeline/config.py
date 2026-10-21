@@ -2,9 +2,10 @@
 NASA C-MAPSS Jet Engine Dependable Pipeline - Central Configuration
 Defines paths, schema definitions, sensor mappings, and structured logging.
 """
-from pathlib import Path
+
 import logging
 import sys
+from pathlib import Path
 
 # Directory Paths
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -78,28 +79,28 @@ SETTING_METADATA = {
     "op_setting_3": {"description": "Throttle Resolver Angle (TRA)", "units": "deg / % (20-100)"},
 }
 
+
 # Setup Logging
 def setup_logging(log_filename="pipeline.log"):
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     log_file = OUTPUT_DIR / log_filename
-    
+
     logger = logging.getLogger("cmapss_pipeline")
     logger.setLevel(logging.INFO)
     logger.handlers.clear()
-    
+
     formatter = logging.Formatter(
-        "[%(asctime)s] [%(levelname)s] [%(name)s] %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S"
+        "[%(asctime)s] [%(levelname)s] [%(name)s] %(message)s", datefmt="%Y-%m-%d %H:%M:%S"
     )
-    
+
     fh = logging.FileHandler(log_file, mode="w", encoding="utf-8")
     fh.setLevel(logging.INFO)
     fh.setFormatter(formatter)
     logger.addHandler(fh)
-    
+
     ch = logging.StreamHandler(sys.stdout)
     ch.setLevel(logging.INFO)
     ch.setFormatter(formatter)
     logger.addHandler(ch)
-    
+
     return logger

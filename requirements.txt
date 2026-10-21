@@ -1,0 +1,12 @@
+# Core Data & API Dependencies
+pandas>=2.0.0
+numpy>=1.24.0
+requests>=2.31.0
+fastapi>=0.100.0
+uvicorn>=0.23.0
+
+# Testing & Quality Engineering
+pytest>=8.0.0
+pytest-cov>=5.0.0
+pytest-mock>=3.14.0
+ruff>=0.4.0

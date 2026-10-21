@@ -11,6 +11,11 @@ venv/
 .venv/
 __pycache__/
 *.pyc
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.freebuff/
 instructor_output/
 student_output/
 .ipynb_checkpoints/
@@ -20,3 +25,5 @@ data/*.db
 # Editor/OS
 .idea/
 .DS_Store
+*.swp
+*.swo

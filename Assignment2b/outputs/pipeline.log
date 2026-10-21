@@ -1,37 +1,37 @@
-[2026-09-27 23:00:26] [INFO] [cmapss_pipeline] =============================================================
-[2026-09-27 23:00:26] [INFO] [cmapss_pipeline] NASA C-MAPSS DEPENDABLE FDE PIPELINE STARTING (FD001)
-[2026-09-27 23:00:26] [INFO] [cmapss_pipeline] =============================================================
-[2026-09-27 23:00:26] [INFO] [cmapss_pipeline] === STEP 1: INGESTION STAGE (FD001) ===
-[2026-09-27 23:00:26] [INFO] [cmapss_pipeline] Loading raw files from C:\Users\Veda\Desktop\flasheats-classroom-pack\Assignment2b\data\raw\CMAPSSData...
-[2026-09-27 23:00:26] [INFO] [cmapss_pipeline]   Train: 20631 rows across 100 engines (Cols: 26).
-[2026-09-27 23:00:26] [INFO] [cmapss_pipeline]   Test:  13096 rows across 100 engines (Cols: 26).
-[2026-09-27 23:00:26] [INFO] [cmapss_pipeline]   RUL:   100 ground-truth test labels loaded.
-[2026-09-27 23:00:26] [INFO] [cmapss_pipeline] Ingestion verified: 0 missing values, strict 26-column schema established.
-[2026-09-27 23:00:26] [INFO] [cmapss_pipeline] === STEP 2: VALIDATION STAGE ===
-[2026-09-27 23:00:26] [INFO] [cmapss_pipeline]   [Grain Uniqueness] Status: PASS | Train Dups: 0 | Test Dups: 0
-[2026-09-27 23:00:26] [INFO] [cmapss_pipeline]   [Unit Contiguity] Status: PASS | Train: 100 (1..100) | Test: 100 (1..100)
-[2026-09-27 23:00:26] [INFO] [cmapss_pipeline]   [Cycle Continuity] Status: PASS | Train Gaps: 0 | Test Gaps: 0
-[2026-09-27 23:00:26] [INFO] [cmapss_pipeline]   [Sensor Variance Audit] Status: WARN | Constant Channels: 6/21 ['sensor_1', 'sensor_5', 'sensor_10', 'sensor_16', 'sensor_18', 'sensor_19']
-[2026-09-27 23:00:26] [INFO] [cmapss_pipeline]   [Lifespan Bounds] Status: PASS | Min: 128 | Max: 362 | Mean: 206.3 | Median: 199.0
-[2026-09-27 23:00:26] [INFO] [cmapss_pipeline]   [Test RUL Alignment] Status: PASS | Test Units: 100 | RUL Count: 100
-[2026-09-27 23:00:26] [INFO] [cmapss_pipeline]   [Decision Context] Status: UNKNOWN | Maintenance thresholds & economic costs are unobserved in C-MAPSS.
-[2026-09-27 23:00:26] [INFO] [cmapss_pipeline] Validation report saved to C:\Users\Veda\Desktop\flasheats-classroom-pack\Assignment2b\outputs\validation_report.json (Overall Status: WARN).
-[2026-09-27 23:00:26] [INFO] [cmapss_pipeline] === STEP 3: TRANSFORMATION STAGE ===
-[2026-09-27 23:00:26] [INFO] [cmapss_pipeline] Constructing canonical condition-monitoring model...
-[2026-09-27 23:00:27] [INFO] [cmapss_pipeline] Grain verification: Total rows = 20631, Unique engine-cycles = 20631, Expected = 20631
-[2026-09-27 23:00:27] [INFO] [cmapss_pipeline] Canonical condition-monitoring dataset exported to C:\Users\Veda\Desktop\flasheats-classroom-pack\Assignment2b\outputs\final_output.csv (20631 rows).
-[2026-09-27 23:00:27] [INFO] [cmapss_pipeline] === STEP 4: METRICS COMPUTATION STAGE ===
-[2026-09-27 23:00:27] [INFO] [cmapss_pipeline] Metrics table exported to C:\Users\Veda\Desktop\flasheats-classroom-pack\Assignment2b\outputs\metrics.csv
-[2026-09-27 23:00:27] [INFO] [cmapss_pipeline]   non_constant_sensor_ratio           | FACT          |  71.43% | 15 of 21 sensors show within-dataset variation under FD001; 6 are constant
-[2026-09-27 23:00:27] [INFO] [cmapss_pipeline]   lifespan_coefficient_of_variation   | OBSERVATIONAL |  22.46% | Simulated engine trajectories terminate across a wide span (128 to 362 cycles)
-[2026-09-27 23:00:27] [INFO] [cmapss_pipeline]   critical_lifecycle_exposure         | UNRATIFIED    |  15.03% | Fraction of training records occurring within 30 cycles of simulated failure endpoint (3100/20631)
-[2026-09-27 23:00:27] [INFO] [cmapss_pipeline]   advisory_lifecycle_exposure         | UNRATIFIED    |  14.54% | Fraction of training records occurring within the 31-60 cycle window prior to endpoint (3000/20631)
-[2026-09-27 23:00:27] [INFO] [cmapss_pipeline]   trajectory_completeness_rate        | FACT          | 100.00% | All 100 of 100 training engines have unbroken, contiguous cycle sequences
-[2026-09-27 23:00:27] [INFO] [cmapss_pipeline] =============================================================
-[2026-09-27 23:00:27] [INFO] [cmapss_pipeline] PIPELINE RUN COMPLETED SUCCESSFULLY in 1.14 seconds
-[2026-09-27 23:00:27] [INFO] [cmapss_pipeline] =============================================================
-[2026-09-27 23:00:27] [INFO] [cmapss_pipeline] GENERATED OUTPUT ARTIFACTS & SHA-256 CHECKSUMS:
-[2026-09-27 23:00:27] [INFO] [cmapss_pipeline]   - validation_report.json    [50a7e2a853cdd4e2...] (3,795 bytes)
-[2026-09-27 23:00:27] [INFO] [cmapss_pipeline]   - final_output.csv          [7c89de19d103ab1a...] (3,486,533 bytes)
-[2026-09-27 23:00:27] [INFO] [cmapss_pipeline]   - metrics.csv               [0991837418a0f50a...] (1,659 bytes)
-[2026-09-27 23:00:27] [INFO] [cmapss_pipeline]   [Idempotence Note] Identical SHA-256 digests prove deterministic repeatability; they do not prove analytical correctness.
+[2026-10-21 19:38:00] [INFO] [cmapss_pipeline] =============================================================
+[2026-10-21 19:38:00] [INFO] [cmapss_pipeline] NASA C-MAPSS DEPENDABLE FDE PIPELINE STARTING (FD001)
+[2026-10-21 19:38:00] [INFO] [cmapss_pipeline] =============================================================
+[2026-10-21 19:38:00] [INFO] [cmapss_pipeline] === STEP 1: INGESTION STAGE (FD001) ===
+[2026-10-21 19:38:00] [INFO] [cmapss_pipeline] Loading raw files from C:\Users\Veda\Desktop\flasheats-classroom-pack\Assignment2b\data\raw\CMAPSSData...
+[2026-10-21 19:38:00] [INFO] [cmapss_pipeline]   Train: 20631 rows across 100 engines (Cols: 26).
+[2026-10-21 19:38:00] [INFO] [cmapss_pipeline]   Test:  13096 rows across 100 engines (Cols: 26).
+[2026-10-21 19:38:00] [INFO] [cmapss_pipeline]   RUL:   100 ground-truth test labels loaded.
+[2026-10-21 19:38:00] [INFO] [cmapss_pipeline] Ingestion verified: 0 missing values, strict 26-column schema established.
+[2026-10-21 19:38:00] [INFO] [cmapss_pipeline] === STEP 2: VALIDATION STAGE ===
+[2026-10-21 19:38:00] [INFO] [cmapss_pipeline]   [Grain Uniqueness] Status: PASS | Train Dups: 0 | Test Dups: 0
+[2026-10-21 19:38:00] [INFO] [cmapss_pipeline]   [Unit Contiguity] Status: PASS | Train: 100 (1..100) | Test: 100 (1..100)
+[2026-10-21 19:38:00] [INFO] [cmapss_pipeline]   [Cycle Continuity] Status: PASS | Train Gaps: 0 | Test Gaps: 0
+[2026-10-21 19:38:00] [INFO] [cmapss_pipeline]   [Sensor Variance Audit] Status: WARN | Constant Channels: 6/21 ['sensor_1', 'sensor_5', 'sensor_10', 'sensor_16', 'sensor_18', 'sensor_19']
+[2026-10-21 19:38:00] [INFO] [cmapss_pipeline]   [Lifespan Bounds] Status: PASS | Min: 128 | Max: 362 | Mean: 206.3 | Median: 199.0
+[2026-10-21 19:38:00] [INFO] [cmapss_pipeline]   [Test RUL Alignment] Status: PASS | Test Units: 100 | RUL Count: 100
+[2026-10-21 19:38:00] [INFO] [cmapss_pipeline]   [Decision Context] Status: UNKNOWN | Maintenance thresholds & economic costs are unobserved in C-MAPSS.
+[2026-10-21 19:38:00] [INFO] [cmapss_pipeline] Validation report saved to C:\Users\Veda\Desktop\flasheats-classroom-pack\Assignment2b\outputs\validation_report.json (Overall Status: WARN).
+[2026-10-21 19:38:00] [INFO] [cmapss_pipeline] === STEP 3: TRANSFORMATION STAGE ===
+[2026-10-21 19:38:00] [INFO] [cmapss_pipeline] Constructing canonical condition-monitoring model...
+[2026-10-21 19:38:00] [INFO] [cmapss_pipeline] Grain verification: Total rows = 20631, Unique engine-cycles = 20631, Expected = 20631
+[2026-10-21 19:38:00] [INFO] [cmapss_pipeline] Canonical condition-monitoring dataset exported to C:\Users\Veda\Desktop\flasheats-classroom-pack\Assignment2b\outputs\final_output.csv (20631 rows).
+[2026-10-21 19:38:00] [INFO] [cmapss_pipeline] === STEP 4: METRICS COMPUTATION STAGE ===
+[2026-10-21 19:38:00] [INFO] [cmapss_pipeline] Metrics table exported to C:\Users\Veda\Desktop\flasheats-classroom-pack\Assignment2b\outputs\metrics.csv
+[2026-10-21 19:38:00] [INFO] [cmapss_pipeline]   non_constant_sensor_ratio           | FACT          |  71.43% | 15 of 21 sensors show within-dataset variation under FD001; 6 are constant
+[2026-10-21 19:38:00] [INFO] [cmapss_pipeline]   lifespan_coefficient_of_variation   | OBSERVATIONAL |  22.46% | Simulated engine trajectories terminate across a wide span (128 to 362 cycles)
+[2026-10-21 19:38:00] [INFO] [cmapss_pipeline]   critical_lifecycle_exposure         | UNRATIFIED    |  15.03% | Fraction of training records occurring within 30 cycles of simulated failure endpoint (3100/20631)
+[2026-10-21 19:38:00] [INFO] [cmapss_pipeline]   advisory_lifecycle_exposure         | UNRATIFIED    |  14.54% | Fraction of training records occurring within the 31-60 cycle window prior to endpoint (3000/20631)
+[2026-10-21 19:38:00] [INFO] [cmapss_pipeline]   trajectory_completeness_rate        | FACT          | 100.00% | All 100 of 100 training engines have unbroken, contiguous cycle sequences
+[2026-10-21 19:38:00] [INFO] [cmapss_pipeline] =============================================================
+[2026-10-21 19:38:00] [INFO] [cmapss_pipeline] PIPELINE RUN COMPLETED SUCCESSFULLY in 0.44 seconds
+[2026-10-21 19:38:00] [INFO] [cmapss_pipeline] =============================================================
+[2026-10-21 19:38:00] [INFO] [cmapss_pipeline] GENERATED OUTPUT ARTIFACTS & SHA-256 CHECKSUMS:
+[2026-10-21 19:38:00] [INFO] [cmapss_pipeline]   - validation_report.json    [50a7e2a853cdd4e2...] (3,795 bytes)
+[2026-10-21 19:38:00] [INFO] [cmapss_pipeline]   - final_output.csv          [7c89de19d103ab1a...] (3,486,533 bytes)
+[2026-10-21 19:38:00] [INFO] [cmapss_pipeline]   - metrics.csv               [0991837418a0f50a...] (1,659 bytes)
+[2026-10-21 19:38:00] [INFO] [cmapss_pipeline]   [Idempotence Note] Identical SHA-256 digests prove deterministic repeatability; they do not prove analytical correctness.

@@ -1,47 +1,47 @@
-[2026-09-27 23:00:58] [INFO] [flasheats_pipeline] =============================================================
-[2026-09-27 23:00:58] [INFO] [flasheats_pipeline] FLASHEATS DEPENDABLE FDE PIPELINE STARTING
-[2026-09-27 23:00:58] [INFO] [flasheats_pipeline] =============================================================
-[2026-09-27 23:00:59] [INFO] [flasheats_pipeline] Starting Mock Dispatch API server from C:\Users\Veda\Desktop\flasheats-classroom-pack\flasheats\api\mock_dispatch_api.py...
-[2026-09-27 23:01:01] [INFO] [flasheats_pipeline] Mock Dispatch API server launched successfully (health: 200 OK).
-[2026-09-27 23:01:01] [INFO] [flasheats_pipeline] === STEP 1: INGESTION STAGE ===
-[2026-09-27 23:01:01] [INFO] [flasheats_pipeline] Extracting SQLite tables from C:\Users\Veda\Desktop\flasheats-classroom-pack\flasheats\database\flasheats.db...
-[2026-09-27 23:01:01] [INFO] [flasheats_pipeline]   orders: (1603, 13), customers: (900, 5), drivers: (120, 4), restaurants: (60, 6)
-[2026-09-27 23:01:01] [INFO] [flasheats_pipeline] Loading CSV and JSON sources from C:\Users\Veda\Desktop\flasheats-classroom-pack\flasheats\data...
-[2026-09-27 23:01:01] [INFO] [flasheats_pipeline]   tickets: (202, 5), restaurant_status: (502, 4), actions: (2365, 6), interventions: (430, 6), outcomes: (1600, 6), driver_events: 120
-[2026-09-27 23:01:01] [INFO] [flasheats_pipeline] Starting dynamic API ingestion from http://127.0.0.1:8000/dispatch/orders (page_size=50)...
-[2026-09-27 23:01:01] [WARNING] [flasheats_pipeline]   [Page 3] HTTP 500 received (temporary upstream failure). Attempt 1/5. Retrying in 0.5s...
-[2026-09-27 23:01:01] [WARNING] [flasheats_pipeline]   [Page 5] HTTP 429 received (rate limit exceeded). Waiting 1s before retry...
-[2026-09-27 23:01:03] [INFO] [flasheats_pipeline] Reached final page (32). Pagination complete.
-[2026-09-27 23:01:03] [INFO] [flasheats_pipeline] Ingestion completeness check: Retrieved 1600 records across 32 pages; API reported total: 1600.
-[2026-09-27 23:01:03] [INFO] [flasheats_pipeline] === STEP 2: VALIDATION STAGE ===
-[2026-09-27 23:01:03] [INFO] [flasheats_pipeline]   [Grain Check] Status: WARN | Raw: 1603 | Unique: 1600 | Duplicates: 3
-[2026-09-27 23:01:03] [INFO] [flasheats_pipeline]   [Completion Time Check] Status: WARN | Delivered: 1532 | Missing actual_delivery_at: 37
-[2026-09-27 23:01:03] [INFO] [flasheats_pipeline]   [Chronology Check] Status: WARN | ETA < Created: 4 | Pickup > Delivery: 5
-[2026-09-27 23:01:03] [INFO] [flasheats_pipeline]   [Referential Integrity] Status: WARN | Rest: 100.0% | Driver: 100.0% | Ticket Nulls: 3 | RS Vol: 31.2%
-[2026-09-27 23:01:03] [INFO] [flasheats_pipeline]   [Freshness Check] Status: WARN (Batch Mode) | Post-pickup updates: 166/502 (33.07%) | Live ETA: UNSAFE
-[2026-09-27 23:01:03] [INFO] [flasheats_pipeline]   [KPI Governance Check] Status: UNKNOWN | Publish 56% Verdict: FAIL (DO NOT PUBLISH TODAY)
-[2026-09-27 23:01:03] [INFO] [flasheats_pipeline] Validation report saved to C:\Users\Veda\Desktop\flasheats-classroom-pack\flasheats\outputs\validation_report.json
-[2026-09-27 23:01:03] [INFO] [flasheats_pipeline] === STEP 3: TRANSFORMATION STAGE ===
-[2026-09-27 23:01:03] [INFO] [flasheats_pipeline] Pre-aggregating one-to-many event tables to order grain...
-[2026-09-27 23:01:03] [INFO] [flasheats_pipeline] Joining pre-aggregated event dimensions to order outcomes...
-[2026-09-27 23:01:03] [INFO] [flasheats_pipeline] Grain verification: Total rows = 1600, Unique order_ids = 1600, Expected orders = 1600
-[2026-09-27 23:01:03] [INFO] [flasheats_pipeline] Canonical order-level dataset exported to C:\Users\Veda\Desktop\flasheats-classroom-pack\flasheats\outputs\final_output.csv (1600 rows).
-[2026-09-27 23:01:03] [INFO] [flasheats_pipeline] === STEP 4: METRICS COMPUTATION STAGE ===
-[2026-09-27 23:01:03] [INFO] [flasheats_pipeline] Metrics table exported to C:\Users\Veda\Desktop\flasheats-classroom-pack\flasheats\outputs\metrics.csv
-[2026-09-27 23:01:03] [INFO] [flasheats_pipeline]   late_delivery_rate             | UNRATIFIED    |  56.39% (843/1495) | delay > 0 min among delivered orders with non-null completion timestamp
-[2026-09-27 23:01:03] [INFO] [flasheats_pipeline]   late_delivery_rate             | UNRATIFIED    |  23.34% (349/1495) | delay > 10 min among delivered orders with non-null completion timestamp
-[2026-09-27 23:01:03] [INFO] [flasheats_pipeline]   late_delivery_rate             | UNRATIFIED    |  55.03% (843/1532) | delay > 0 min among all unique delivered orders (including missing timestamps)
-[2026-09-27 23:01:03] [INFO] [flasheats_pipeline]   late_delivery_rate             | UNRATIFIED    |  52.69% (843/1600) | delay > 0 min among total unique orders placed (including cancellations)
-[2026-09-27 23:01:03] [INFO] [flasheats_pipeline]   customer_friction_rate         | OBSERVATIONAL |  12.56% (201/1600) | orders where customer opened support or attempted cancellation
-[2026-09-27 23:01:03] [INFO] [flasheats_pipeline]   operational_intervention_rate  | OBSERVATIONAL |  26.88% (430/1600) | orders receiving at least one operational remedy (dispatch / support / merchant)
-[2026-09-27 23:01:03] [INFO] [flasheats_pipeline]   intervention_rescue_rate       | OBSERVATIONAL |  43.56% (176/404) | intervened orders successfully delivered on-time (delay <= 0 min)
-[2026-09-27 23:01:03] [INFO] [flasheats_pipeline] =============================================================
-[2026-09-27 23:01:03] [INFO] [flasheats_pipeline] PIPELINE RUN COMPLETED SUCCESSFULLY in 2.66 seconds
-[2026-09-27 23:01:03] [INFO] [flasheats_pipeline] =============================================================
-[2026-09-27 23:01:03] [INFO] [flasheats_pipeline] GENERATED OUTPUT ARTIFACTS & SHA-256 CHECKSUMS:
-[2026-09-27 23:01:03] [INFO] [flasheats_pipeline]   - validation_report.json    [f0c2b600c2d8e87c...] (7,106 bytes)
-[2026-09-27 23:01:03] [INFO] [flasheats_pipeline]   - final_output.csv          [e93cc02a2c244a1a...] (76,669 bytes)
-[2026-09-27 23:01:03] [INFO] [flasheats_pipeline]   - metrics.csv               [498b683b580a652c...] (1,898 bytes)
-[2026-09-27 23:01:03] [INFO] [flasheats_pipeline] Raw API Pages Preserved:
-[2026-09-27 23:01:03] [INFO] [flasheats_pipeline]   - Preserved 32 raw response pages in C:\Users\Veda\Desktop\flasheats-classroom-pack\flasheats\data\raw\dispatch
-[2026-09-27 23:01:03] [INFO] [flasheats_pipeline] Mock API process terminated.
+[2026-10-21 19:38:01] [INFO] [flasheats_pipeline] =============================================================
+[2026-10-21 19:38:01] [INFO] [flasheats_pipeline] FLASHEATS DEPENDABLE FDE PIPELINE STARTING
+[2026-10-21 19:38:01] [INFO] [flasheats_pipeline] =============================================================
+[2026-10-21 19:38:02] [INFO] [flasheats_pipeline] Starting Mock Dispatch API server from C:\Users\Veda\Desktop\flasheats-classroom-pack\flasheats\api\mock_dispatch_api.py...
+[2026-10-21 19:38:04] [INFO] [flasheats_pipeline] Mock Dispatch API server launched successfully (health: 200 OK).
+[2026-10-21 19:38:04] [INFO] [flasheats_pipeline] === STEP 1: INGESTION STAGE ===
+[2026-10-21 19:38:04] [INFO] [flasheats_pipeline] Extracting SQLite tables from C:\Users\Veda\Desktop\flasheats-classroom-pack\flasheats\database\flasheats.db...
+[2026-10-21 19:38:04] [INFO] [flasheats_pipeline]   orders: (1603, 13), customers: (900, 5), drivers: (120, 4), restaurants: (60, 6)
+[2026-10-21 19:38:04] [INFO] [flasheats_pipeline] Loading CSV and JSON sources from C:\Users\Veda\Desktop\flasheats-classroom-pack\flasheats\data...
+[2026-10-21 19:38:04] [INFO] [flasheats_pipeline]   tickets: (202, 5), restaurant_status: (502, 4), actions: (2365, 6), interventions: (430, 6), outcomes: (1600, 6), driver_events: 120
+[2026-10-21 19:38:04] [INFO] [flasheats_pipeline] Starting dynamic API ingestion from http://127.0.0.1:8000/dispatch/orders (page_size=50)...
+[2026-10-21 19:38:04] [WARNING] [flasheats_pipeline]   [Page 3] HTTP 500 received (temporary upstream failure). Attempt 1/5. Retrying in 0.5s...
+[2026-10-21 19:38:05] [WARNING] [flasheats_pipeline]   [Page 5] HTTP 429 received (rate limit exceeded). Waiting 1s before retry...
+[2026-10-21 19:38:06] [INFO] [flasheats_pipeline] Reached final page (32). Pagination complete.
+[2026-10-21 19:38:06] [INFO] [flasheats_pipeline] Ingestion completeness check: Retrieved 1600 records across 32 pages; API reported total: 1600.
+[2026-10-21 19:38:06] [INFO] [flasheats_pipeline] === STEP 2: VALIDATION STAGE ===
+[2026-10-21 19:38:06] [INFO] [flasheats_pipeline]   [Grain Check] Status: WARN | Raw: 1603 | Unique: 1600 | Duplicates: 3
+[2026-10-21 19:38:06] [INFO] [flasheats_pipeline]   [Completion Time Check] Status: WARN | Delivered: 1532 | Missing actual_delivery_at: 37
+[2026-10-21 19:38:06] [INFO] [flasheats_pipeline]   [Chronology Check] Status: WARN | ETA < Created: 4 | Pickup > Delivery: 5
+[2026-10-21 19:38:06] [INFO] [flasheats_pipeline]   [Referential Integrity] Status: WARN | Rest: 100.0% | Driver: 100.0% | Ticket Nulls: 3 | RS Vol: 31.2%
+[2026-10-21 19:38:06] [INFO] [flasheats_pipeline]   [Freshness Check] Status: WARN (Batch Mode) | Post-pickup updates: 166/502 (33.07%) | Live ETA: UNSAFE
+[2026-10-21 19:38:06] [INFO] [flasheats_pipeline]   [KPI Governance Check] Status: UNKNOWN | Publish 56% Verdict: FAIL (DO NOT PUBLISH TODAY)
+[2026-10-21 19:38:06] [INFO] [flasheats_pipeline] Validation report saved to C:\Users\Veda\Desktop\flasheats-classroom-pack\flasheats\outputs\validation_report.json
+[2026-10-21 19:38:06] [INFO] [flasheats_pipeline] === STEP 3: TRANSFORMATION STAGE ===
+[2026-10-21 19:38:06] [INFO] [flasheats_pipeline] Pre-aggregating one-to-many event tables to order grain...
+[2026-10-21 19:38:06] [INFO] [flasheats_pipeline] Joining pre-aggregated event dimensions to order outcomes...
+[2026-10-21 19:38:06] [INFO] [flasheats_pipeline] Grain verification: Total rows = 1600, Unique order_ids = 1600, Expected orders = 1600
+[2026-10-21 19:38:06] [INFO] [flasheats_pipeline] Canonical order-level dataset exported to C:\Users\Veda\Desktop\flasheats-classroom-pack\flasheats\outputs\final_output.csv (1600 rows).
+[2026-10-21 19:38:06] [INFO] [flasheats_pipeline] === STEP 4: METRICS COMPUTATION STAGE ===
+[2026-10-21 19:38:06] [INFO] [flasheats_pipeline] Metrics table exported to C:\Users\Veda\Desktop\flasheats-classroom-pack\flasheats\outputs\metrics.csv
+[2026-10-21 19:38:06] [INFO] [flasheats_pipeline]   late_delivery_rate             | UNRATIFIED    |  56.39% (843/1495) | delay > 0 min among delivered orders with non-null completion timestamp
+[2026-10-21 19:38:06] [INFO] [flasheats_pipeline]   late_delivery_rate             | UNRATIFIED    |  23.34% (349/1495) | delay > 10 min among delivered orders with non-null completion timestamp
+[2026-10-21 19:38:06] [INFO] [flasheats_pipeline]   late_delivery_rate             | UNRATIFIED    |  55.03% (843/1532) | delay > 0 min among all unique delivered orders (including missing timestamps)
+[2026-10-21 19:38:06] [INFO] [flasheats_pipeline]   late_delivery_rate             | UNRATIFIED    |  52.69% (843/1600) | delay > 0 min among total unique orders placed (including cancellations)
+[2026-10-21 19:38:06] [INFO] [flasheats_pipeline]   customer_friction_rate         | OBSERVATIONAL |  12.56% (201/1600) | orders where customer opened support or attempted cancellation
+[2026-10-21 19:38:06] [INFO] [flasheats_pipeline]   operational_intervention_rate  | OBSERVATIONAL |  26.88% (430/1600) | orders receiving at least one operational remedy (dispatch / support / merchant)
+[2026-10-21 19:38:06] [INFO] [flasheats_pipeline]   intervention_rescue_rate       | OBSERVATIONAL |  43.56% (176/404) | intervened orders successfully delivered on-time (delay <= 0 min)
+[2026-10-21 19:38:06] [INFO] [flasheats_pipeline] =============================================================
+[2026-10-21 19:38:06] [INFO] [flasheats_pipeline] PIPELINE RUN COMPLETED SUCCESSFULLY in 2.35 seconds
+[2026-10-21 19:38:06] [INFO] [flasheats_pipeline] =============================================================
+[2026-10-21 19:38:06] [INFO] [flasheats_pipeline] GENERATED OUTPUT ARTIFACTS & SHA-256 CHECKSUMS:
+[2026-10-21 19:38:06] [INFO] [flasheats_pipeline]   - validation_report.json    [f0c2b600c2d8e87c...] (7,106 bytes)
+[2026-10-21 19:38:06] [INFO] [flasheats_pipeline]   - final_output.csv          [e93cc02a2c244a1a...] (76,669 bytes)
+[2026-10-21 19:38:06] [INFO] [flasheats_pipeline]   - metrics.csv               [498b683b580a652c...] (1,898 bytes)
+[2026-10-21 19:38:06] [INFO] [flasheats_pipeline] Raw API Pages Preserved:
+[2026-10-21 19:38:06] [INFO] [flasheats_pipeline]   - Preserved 32 raw response pages in C:\Users\Veda\Desktop\flasheats-classroom-pack\flasheats\data\raw\dispatch
+[2026-10-21 19:38:06] [INFO] [flasheats_pipeline] Mock API process terminated.
