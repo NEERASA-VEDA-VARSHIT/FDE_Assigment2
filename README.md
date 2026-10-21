@@ -5,8 +5,8 @@
 [![Code Style: Ruff](https://img.shields.io/badge/code%20style-ruff-000000.svg)](https://github.com/astral-sh/ruff)
 [![Tests: 10/10 Passed](https://img.shields.io/badge/tests-10%20passed-brightgreen.svg)](tests/)
 
-A dual forward-deployed data engineering suite demonstrating resilient data ingestion, automated validation contracts, idempotent transformations, and metric governance across two mission-critical operating domains:
-1. **Industrial IoT Telemetry & Degradation** (`Assignment2b/`): NASA C-MAPSS turbofan gas-turbine sensor stream processing.
+A dual forward-deployed data engineering suite demonstrating resilient data ingestion, automated validation contracts, idempotent transformations, and metric governance across two operational data domains:
+1. **Industrial Telemetry Dataset & Degradation** (`Assignment2b/`): NASA C-MAPSS turbofan gas-turbine sensor stream processing.
 2. **On-Demand Dispatch & Logistics Event ETL** (`flasheats/`): Multi-source food delivery dispatch, ETA reliability, and executive KPI governance.
 
 ---
@@ -34,7 +34,7 @@ flowchart TD
 
 ---
 
-## Subsystem 1: Industrial IoT Telemetry (NASA C-MAPSS FD001)
+## Subsystem 1: Industrial Telemetry Dataset (NASA C-MAPSS FD001)
 
 Located in [`Assignment2b/`](Assignment2b/).
 
@@ -137,7 +137,7 @@ ruff format --check Assignment2b/pipeline Assignment2b/tests flasheats/pipeline 
 ├── .github/
 │   └── workflows/
 │       └── ci.yml               # GitHub Actions CI matrix (Python 3.10, 3.11, 3.12)
-├── Assignment2b/                # Subsystem 1: Industrial Telemetry (NASA C-MAPSS)
+├── Assignment2b/                # Subsystem 1: Industrial Telemetry Dataset (NASA C-MAPSS)
 │   ├── data/raw/CMAPSSData/     # Preserved raw NASA run-to-failure archives
 │   ├── docs/                    # Source mapping, validation reports, workflow models
 │   ├── outputs/                 # Deterministic output artifacts (CSV, JSON, log)
